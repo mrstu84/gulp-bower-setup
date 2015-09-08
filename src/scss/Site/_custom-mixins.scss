@@ -18,7 +18,7 @@
  * Hover
  * Simple transition applied to element on hover from $original color to $hover
  */
-@mixin hover-transistion($original, $hover) {
+@mixin hover-transition($original, $hover) {
 	color: $original;
 
 	@include transition(color .2s ease);
@@ -27,7 +27,6 @@
 		color: $hover;
 	}
 }
-
 
 /*
  * Sprite
