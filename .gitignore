@@ -1,0 +1,43 @@
+# Assets
+/_assets/db/*.bak
+/_assets/db/*~
+/_assets/mockups
+
+# Site
+/www/app/tmp/logs/*
+/www/app/tmp/cache/*
+/www/app/tmp/cache/*/*
+/www/app/tmp/cache/cake_toolbar_cache*
+/www/app/tmp/dynamic*
+/www/app/webroot/files/img_cache/*
+/www/app/webroot/files/uploads/*
+/www/app/webroot/files/document/*
+/www/app/webroot/files/image/*
+
+# Composer directories
+/www/Vendor/*
+/www/Plugin/*
+
+#Vagrant Virtual machines
+/.vagrant
+/files
+/modules
+/manifests
+/xhprof
+/puphpet.json
+/www/error
+/www/icons
+/www/cgi-bin
+/www/default
+
+# Gulp
+node_modules
+
+# Bower
+src/vendor/*
+
+# Global
+.DS_Store
+/logs/
+/puppet
+/statistics

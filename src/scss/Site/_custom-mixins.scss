@@ -1,0 +1,40 @@
+/*
+ * Font size
+ * Coverts the supplied pixel based font size to rem,
+ * using pixel asfall back. Uses calculateRem function
+ * to calculate the size in rems
+ */
+@function calculateRem($size) {
+	$remSize: $size / 10px;
+	@return #{$remSize}rem;
+}
+
+@mixin font-size($size) {
+	font-size: $size; //Fallback in px
+	font-size: calculateRem($size);
+}
+
+/*
+ * Hover
+ * Simple transition applied to element on hover from $original color to $hover
+ */
+@mixin hover-transistion($original, $hover) {
+	color: $original;
+
+	@include transition(color .2s ease);
+
+	&:focus, &:hover {
+		color: $hover;
+	}
+}
+
+
+/*
+ * Sprite
+ */
+@mixin sprite($file, $posX, $posY) {
+	background-color: transparent;
+	background-image: url('../img/#{$file}');
+	background-repeat: no-repeat;
+	background-position: $posX $posY;
+}

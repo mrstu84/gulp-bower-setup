@@ -1,0 +1,22 @@
+{
+  "name": "integral-network-solutions",
+  "version": "1.0.0",
+  "authors": [
+    "Stewart Doxey <stewart@evoluted.net>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/vendor",
+    "test",
+    "tests"
+  ],
+  "overrides": [
+    "jquery"
+  ],
+  "devDependencies": {
+    "components-font-awesome": "~4.4.0"
+  }
+}
