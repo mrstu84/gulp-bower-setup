@@ -77,7 +77,7 @@ function buildStyles(data) {
     es.concat(sassFiles)
     	.pipe(plugins.concat(data.dest.filename))
     	.pipe(isProduction ? plugins.minifyCss({advanced: false}) : gutil.noop())
-    	.pipe(plugins.size({showFiles:true}))
+    	.pipe(plugins.size({showFiles:true,title:'Output'}))
     	.pipe(gulp.dest(data.dest.path));
     return;
 }
@@ -122,7 +122,7 @@ function buildScripts(data) {
 	        .pipe(plugins.filter('*.js'))
 	        .pipe(plugins.concat(data.dest.filename))
 	        .pipe(isProduction ? plugins.uglify() : gutil.noop())
-	        .pipe(plugins.size({title:data.dest.path + data.dest.filename}))
+	        .pipe(plugins.size({showFiles:true,title:'Output'}))
 	        .pipe(gulp.dest(data.dest.path));
 	return;
 }
