@@ -75,10 +75,10 @@ function buildStyles(data) {
     					}));
 
     es.concat(sassFiles)
-    	.pipe(plugins.concat('style.min.css'))
+    	.pipe(plugins.concat(data.dest.filename))
     	.pipe(isProduction ? plugins.minifyCss({advanced: false}) : gutil.noop())
-    	.pipe(plugins.size())
-    	.pipe(gulp.dest(data.dest));
+    	.pipe(plugins.size({showFiles:true}))
+    	.pipe(gulp.dest(data.dest.path));
     return;
 }
 
@@ -120,10 +120,10 @@ function watchScripts(data) {
 function buildScripts(data) {
     gulp.src(plugins.mainBowerFiles().concat(data.src))
 	        .pipe(plugins.filter('*.js'))
-	        .pipe(plugins.concat('script.min.js'))
+	        .pipe(plugins.concat(data.dest.filename))
 	        .pipe(isProduction ? plugins.uglify() : gutil.noop())
-	        .pipe(plugins.size())
-	        .pipe(gulp.dest(data.dest));
+	        .pipe(plugins.size({title:data.dest.path + data.dest.filename}))
+	        .pipe(gulp.dest(data.dest.path));
 	return;
 }
 
