@@ -2,8 +2,8 @@
 // http://www.mikestreety.co.uk/blog/an-advanced-gulpjs-file
 
 var vendorFiles = {
-    styles: '',
-    scripts: ''
+	styles: '',
+	scripts: ''
 };
 
 // Include gulp
@@ -34,9 +34,9 @@ var sassStyle = 'compressed';
 var sourceMap = false;
 
 if (gutil.env.dev === true) {
-    sassStyle = 'expanded';
-    sourceMap = true;
-    isProduction = false;
+	sassStyle = 'expanded';
+	sourceMap = true;
+	isProduction = false;
 }
 
 gulp.task('css', loadStyles());
@@ -62,36 +62,39 @@ function loadStyles() {
 
 function buildStyles(data) {
 	var sassFiles = gulp.src(plugins.mainBowerFiles().concat(data.src))
-						.pipe(plugins.filter(['*.css', '*.scss']))
-    					.pipe(plugins.plumber())
-    					.pipe(plugins.sass({
-        					outputStyle: sassStyle,
-        					sourceMap: sourceMap,
-        					precision: 8,
-        					includePaths: [
-        						'./src/vendor/bootstrap-sass/assets/stylesheets',
-        						'./src/vendor/components-font-awesome/scss'
-        					]
-    					}));
+		.pipe(plugins.sourcemaps.init()) // Init sourcemaps for debugging
+		.pipe(plugins.filter(['*.css', '*.scss']))
+		.pipe(plugins.plumber())
+		.pipe(plugins.sass({
+			outputStyle: sassStyle,
+			sourceMap: sourceMap,
+			precision: 8,
+			includePaths: [
+				'./src/vendor/bootstrap-sass/assets/stylesheets',
+				'./src/vendor/components-font-awesome/scss'
+			]
+		}));
 
-    var css = es.concat(sassFiles)
-    	.pipe(plugins.concat(data.dest.filename))
-    	.pipe(isProduction ? plugins.minifyCss({advanced: false}) : gutil.noop())
-    	.pipe(plugins.size({showFiles:true,title:'Output'}));
+	var css = es.concat(sassFiles)
+		.pipe(plugins.sourcemaps.write())
+		// Inline sourcemaps if not production
+		.pipe(plugins.concat(data.dest.filename))
+		.pipe(isProduction ? plugins.minifyCss({advanced: false}) : gutil.noop())
+		.pipe(plugins.size({showFiles:true,title:'Output'}));
 
 	// Output file to each destination in paths
 	for (var i=0; i<data.dest.paths.length; i++) {
 		css.pipe(gulp.dest(data.dest.paths[i]))
 	}
-    return;
+	return;
 }
 
 function watchStyles(data) {
 	gulp.watch(data.watch, ['css']).on('change', function(evt) {
-        buildStyles(data);
-        changeEvent(evt, data.src);
-    });
-    return;
+		buildStyles(data);
+		changeEvent(evt, data.src);
+	});
+	return;
 }
 
 function loadScripts() {
@@ -115,18 +118,18 @@ function loadScripts() {
 
 function watchScripts(data) {
 	gulp.watch(data.watch, ['js']).on('change', function(evt) {
-        buildScripts(data);
-        changeEvent(evt, data.src);
-    });
-    return;
+		buildScripts(data);
+		changeEvent(evt, data.src);
+	});
+	return;
 }
 
 function buildScripts(data) {
-    var js = gulp.src(plugins.mainBowerFiles().concat(data.src))
-	        .pipe(plugins.filter('*.js'))
-	        .pipe(plugins.concat(data.dest.filename))
-	        .pipe(isProduction ? plugins.uglify() : gutil.noop())
-	        .pipe(plugins.size({showFiles:true,title:'Output'}));
+	var js = gulp.src(plugins.mainBowerFiles().concat(data.src))
+			.pipe(plugins.filter('*.js'))
+			.pipe(plugins.concat(data.dest.filename))
+			.pipe(isProduction ? plugins.uglify() : gutil.noop())
+			.pipe(plugins.size({showFiles:true,title:'Output'}));
 
 	// Output file to each destination in paths
 	for (var i=0; i<data.dest.paths.length; i++) {
@@ -136,8 +139,8 @@ function buildScripts(data) {
 }
 
 var changeEvent = function(evt, src) {
-    gutil.log('File', gutil.colors.cyan(evt.path), 'was', gutil.colors.magenta(evt.type));
-    return;
+	gutil.log('File', gutil.colors.cyan(evt.path), 'was', gutil.colors.magenta(evt.type));
+	return;
 };
 
 gulp.task('default', ['css', 'js']);
