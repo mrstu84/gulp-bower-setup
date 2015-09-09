@@ -62,7 +62,7 @@ function loadStyles() {
 
 function buildStyles(data) {
 	var sassFiles = gulp.src(plugins.mainBowerFiles().concat(data.src))
-		.pipe(plugins.sourcemaps.init()) // Init sourcemaps for debugging
+		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.init()) // Init sourcemaps for debugging
 		.pipe(plugins.filter(['*.css', '*.scss']))
 		.pipe(plugins.plumber())
 		.pipe(plugins.sass({
@@ -76,8 +76,7 @@ function buildStyles(data) {
 		}));
 
 	var css = es.concat(sassFiles)
-		.pipe(plugins.sourcemaps.write())
-		// Inline sourcemaps if not production
+		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.write()) // Inline sourcemaps if not production
 		.pipe(plugins.concat(data.dest.filename))
 		.pipe(isProduction ? plugins.minifyCss({advanced: false}) : gutil.noop())
 		.pipe(plugins.size({showFiles:true,title:'Output'}));
