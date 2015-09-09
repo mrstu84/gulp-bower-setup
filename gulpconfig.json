@@ -3,7 +3,10 @@
 		"site": [{
 			"src": "./src/scss/Site/styles.scss",
 			"dest": {
-				"path": "./www/app/webroot/css",
+				"paths": [
+					"./www/app/webroot/css",
+					"./html/css"
+				],
 				"filename": "site.min.css"
 			},
 			"watch": [
@@ -14,7 +17,9 @@
 		"admin": [{
 			"src": "./src/scss/Admin/admin.scss",
 			"dest": {
-				"path": "./www/app/View/Themed/Admin/webroot/css",
+				"paths": [
+					"./www/app/View/Themed/Admin/webroot/css"
+				],
 				"filename": "admin.min.css"
 			},
 			"watch": [
@@ -23,7 +28,9 @@
 		}, {
 			"src": "./src/scss/Admin/wysiwyg.scss",
 			"dest": {
-				"path": "./www/app/View/Themed/Admin/webroot/css",
+				"paths": [
+					"./www/app/View/Themed/Admin/webroot/css"
+				],
 				"filename": "wysiwyg.min.css"
 			},
 			"watch": [
@@ -36,7 +43,10 @@
 			"name": "site.js",
 			"src": "./src/js/Site/**/*.js",
 			"dest": {
-				"path": "./www/app/webroot/js",
+				"paths": [
+					"./www/app/webroot/js",
+					"./html/js"
+				],
 				"filename": "site.min.js"
 			},
 			"watch": [
@@ -47,7 +57,9 @@
 			"name": "admin.js",
 			"src": "./src/js/Admin/**/*.js",
 			"dest": {
-				"path": "./www/app/View/Themed/Admin/webroot/js",
+				"paths": [
+					"./www/app/View/Themed/Admin/webroot/js"
+				],
 				"filename": "admin.min.js"
 			},
 			"watch": [

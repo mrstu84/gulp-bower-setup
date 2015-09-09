@@ -1,8 +1,9 @@
 {
-  "name": "integral-network-solutions",
-  "version": "1.0.0",
+  "name": "gulp-bower-setup",
+  "version": "1.0.1",
   "authors": [
-    "Stewart Doxey <stewart@evoluted.net>"
+    "Stewart Doxey <stewart@evoluted.net>",
+    "Michael Cook <michael@evoluted.net>"
   ],
   "license": "MIT",
   "ignore": [
@@ -17,6 +18,7 @@
     "jquery"
   ],
   "devDependencies": {
-    "components-font-awesome": "~4.4.0"
+    "components-font-awesome": "~4.4.0",
+    "bootstrap-sass": "~> 3.3.5"
   }
 }
