@@ -76,7 +76,7 @@ function buildStyles(data) {
 		.pipe(plugins.filter(['*.css', '*.scss']))
 		.pipe(plugins.plumber())
 		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.init()) // Init sourcemaps for debugging
-		.pipe(plugins.autoprefixer(autoprefixerBrowsers))
+		.pipe(plugins.autoprefixer(autoprefixerOptions))
 		.pipe(plugins.sass({
 			outputStyle: sassStyle,
 			precision: 8,
@@ -97,9 +97,6 @@ function buildStyles(data) {
 			css.pipe(gulp.dest(data.dest.paths[i]));
 		}
 	}
-
-	var info = autoprefixer(autoprefixerOptions).info();
-	console.log(info);
 
 	return;
 }
