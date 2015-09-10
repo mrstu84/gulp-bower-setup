@@ -1,3 +1,31 @@
+//
+// Define Gulp plugin config options
+// --------------------------------------------
+
+// Configure Auto Prefixer (https://github.com/sindresorhus/gulp-autoprefixer / https://github.com/ai/browserslist)
+var autoprefixerOptions = {
+	browsers: ['IE8', 'IE9', 'last 2 versions']
+};
+
+// Configure Main Bower Files (https://github.com/ck86/main-bower-files)
+var mainBowerFilesOptions = {
+	paths: {
+		bowerrrc: './'
+	}
+};
+
+// Sass Include Paths
+// For example: When using Bootstrap, assign here to enable your libsass to easily include complex Bower component file paths
+// '@import "bootstrap/variables";' rather than '@import "./bootstrap-sass/assets/stylesheets/bootstrap/variables";' without
+var sassIncludePaths = [
+	'./src/vendor/bootstrap-sass/assets/stylesheets',
+	'./src/vendor/components-font-awesome/scss'
+];
+
+//
+// Beginning of Gulp processes
+// --------------------------------------------
+
 // Include gulp
 var gulp = require('gulp');
 
@@ -10,25 +38,16 @@ var plugins = require("gulp-load-plugins")({
 	replaceString: /\bgulp[\-.]/
 });
 
-// configure main bower files
-plugins.mainBowerFiles({
-	paths: {
-		bowerrrc: './'
-	}
-});
-
 // Define config file
 var config = require('./gulpconfig.json');
 
 // Allows gulp --dev to be run for a more verbose output
 var isProduction = true;
 var sassStyle = 'compressed';
-var sourceMap = false;
 
 if (gutil.env.dev === true) {
-	sassStyle = 'expanded';
-	sourceMap = true;
 	isProduction = false;
+	sassStyle = 'expanded';
 }
 
 gulp.task('css', loadStyles());
@@ -53,24 +72,21 @@ function loadStyles() {
 }
 
 function buildStyles(data) {
-	var sassFiles = gulp.src(plugins.mainBowerFiles().concat(data.src))
-		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.init()) // Init sourcemaps for debugging
+	var sassFiles = gulp.src(plugins.mainBowerFiles(mainBowerFilesOptions).concat(data.src))
 		.pipe(plugins.filter(['*.css', '*.scss']))
 		.pipe(plugins.plumber())
+		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.init()) // Init sourcemaps for debugging
+		.pipe(plugins.autoprefixer(autoprefixerBrowsers))
 		.pipe(plugins.sass({
 			outputStyle: sassStyle,
-			sourceMap: sourceMap,
 			precision: 8,
-			includePaths: [
-				'./src/vendor/bootstrap-sass/assets/stylesheets',
-				'./src/vendor/components-font-awesome/scss'
-			]
+			includePaths: sassIncludePaths
 		}));
 
 	var css = es.concat(sassFiles)
-		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.write()) // Inline sourcemaps if not production
 		.pipe(plugins.concat(data.dest.filename))
 		.pipe(isProduction ? plugins.minifyCss({advanced: false}) : gutil.noop())
+		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.write()) // Inline sourcemaps if not production
 		.pipe(plugins.size({showFiles:true,title:'Output'}));
 
 	// Output file to each destination in paths
@@ -81,6 +97,10 @@ function buildStyles(data) {
 			css.pipe(gulp.dest(data.dest.paths[i]));
 		}
 	}
+
+	var info = autoprefixer(autoprefixerOptions).info();
+	console.log(info);
+
 	return;
 }
 
@@ -120,7 +140,7 @@ function watchScripts(data) {
 }
 
 function buildScripts(data) {
-	var js = gulp.src(plugins.mainBowerFiles().concat(data.src))
+	var js = gulp.src(plugins.mainBowerFiles(mainBowerFilesOptions).concat(data.src))
 			.pipe(plugins.filter('*.js'))
 			.pipe(plugins.concat(data.dest.filename))
 			.pipe(isProduction ? plugins.uglify() : gutil.noop())
