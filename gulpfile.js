@@ -4,7 +4,7 @@
 
 // Configure Auto Prefixer (https://github.com/sindresorhus/gulp-autoprefixer / https://github.com/ai/browserslist)
 var autoprefixerOptions = {
-	browsers: ['IE8', 'IE9', 'last 2 versions']
+	browsers: ['IE 8', 'IE 9', 'last 2 versions']
 };
 
 // Configure Main Bower Files (https://github.com/ck86/main-bower-files)
@@ -76,7 +76,6 @@ function buildStyles(data) {
 		.pipe(plugins.filter(['*.css', '*.scss']))
 		.pipe(plugins.plumber())
 		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.init()) // Init sourcemaps for debugging
-		.pipe(plugins.autoprefixer(autoprefixerOptions))
 		.pipe(plugins.sass({
 			outputStyle: sassStyle,
 			precision: 8,
@@ -85,6 +84,7 @@ function buildStyles(data) {
 
 	var css = es.concat(sassFiles)
 		.pipe(plugins.concat(data.dest.filename))
+		.pipe(plugins.autoprefixer(autoprefixerOptions))
 		.pipe(isProduction ? plugins.minifyCss({advanced: false}) : gutil.noop())
 		.pipe(isProduction ? gutil.noop() : plugins.sourcemaps.write()) // Inline sourcemaps if not production
 		.pipe(plugins.size({showFiles:true,title:'Output'}));
