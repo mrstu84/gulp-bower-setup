@@ -1,11 +1,3 @@
-// source: http://andy-carter.com/blog/a-beginners-guide-to-package-manager-bower-and-using-gulp-to-manage-components
-// http://www.mikestreety.co.uk/blog/an-advanced-gulpjs-file
-
-var vendorFiles = {
-	styles: '',
-	scripts: ''
-};
-
 // Include gulp
 var gulp = require('gulp');
 
@@ -82,8 +74,12 @@ function buildStyles(data) {
 		.pipe(plugins.size({showFiles:true,title:'Output'}));
 
 	// Output file to each destination in paths
-	for (var i=0; i<data.dest.paths.length; i++) {
-		css.pipe(gulp.dest(data.dest.paths[i]))
+	if (typeof data.dest.paths === 'string') {
+		css.pipe(gulp.dest(data.dest.paths));
+	} else {
+		for (var i=0; i<data.dest.paths.length; i++) {
+			css.pipe(gulp.dest(data.dest.paths[i]));
+		}
 	}
 	return;
 }
@@ -131,8 +127,12 @@ function buildScripts(data) {
 			.pipe(plugins.size({showFiles:true,title:'Output'}));
 
 	// Output file to each destination in paths
-	for (var i=0; i<data.dest.paths.length; i++) {
-		js.pipe(gulp.dest(data.dest.paths[i]))
+	if (typeof data.dest.paths === 'string') {
+		js.pipe(gulp.dest(data.dest.paths));
+	} else {
+		for (var i=0; i<data.dest.paths.length; i++) {
+			js.pipe(gulp.dest(data.dest.paths[i]));
+		}
 	}
 	return;
 }
