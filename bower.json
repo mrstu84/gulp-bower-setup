@@ -20,5 +20,10 @@
   "devDependencies": {
     "components-font-awesome": "~4.4.0",
     "bootstrap-sass": "~> 3.3.5"
+  },
+  "dependencies": {
+    "bootstrap-sass": "~3.3.5",
+    "components-font-awesome": "~4.4.0",
+    "jquery": "1.11.*"
   }
 }
