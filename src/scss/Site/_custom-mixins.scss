@@ -37,3 +37,39 @@
 	background-repeat: no-repeat;
 	background-position: $posX $posY;
 }
+
+//
+// Breakpoint mixins
+// ----------------------------------------------
+
+@mixin sm-plus {
+	@media (min-width: $screen-sm-min) {
+		@content;
+	}
+}
+@mixin md-plus {
+	@media (min-width: $screen-md-min) {
+		@content;
+	}
+}
+@mixin lg-plus { // same as lg
+	@media (min-width: $screen-lg-min) {
+		@content;
+	}
+}
+
+@mixin sm {
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		@content;
+	}
+}
+@mixin md {
+	@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+		@content;
+	}
+}
+@mixin lg {
+	@media (min-width: $screen-lg-min) {
+		@content;
+	}
+}
