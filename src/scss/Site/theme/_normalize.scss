@@ -1,0 +1,27 @@
+
+// Silly chrome outlines elements in blue if you click on them
+:focus { outline: none; }
+
+// Without this, select has cursor: default; d'oh!
+select { cursor: pointer; }
+
+// Stop select styles from affecting the options too
+option {
+	background: white;
+	padding: 0!important;
+}
+
+// iOS devices do silly things that override input styles
+input[type=text],
+input[type=email],
+input[type=tel],
+input[type=url],
+input[type=search] {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
