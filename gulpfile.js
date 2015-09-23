@@ -98,6 +98,9 @@ function buildStyles(data) {
 		}
 	}
 
+	// add blank line to aid output readability
+	gutil.log('');
+
 	return;
 }
 
@@ -151,6 +154,10 @@ function buildScripts(data) {
 			js.pipe(gulp.dest(data.dest.paths[i]));
 		}
 	}
+
+	// add blank line to aid output readability
+	gutil.log('');
+
 	return;
 }
 
