@@ -1,6 +1,12 @@
 # gulp-bower-setup
 Basic site starting point containing Gulp and Bower, pulling in jQuery, Twitter Bootstrap and Font Awesome
 
+##Before you start
+
+Make sure bower is installed globally via
+
+    npm install -g bower
+
 ## Getting Started
 
 To install the required Gulp plugins already defined in gulpfile.js saveDependencies run
