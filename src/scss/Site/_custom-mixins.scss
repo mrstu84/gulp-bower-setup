@@ -114,9 +114,14 @@ $attention: "&:focus, &:hover, &:active";
 /*
  * Set a particular property to have different values for each breakpoint
  * Usage:
-@include res(margin-bottom,12,18,20,22);
+@include breakpoint-values(margin-bottom,12px,18px,20px,22px);
+ *
+ * Notes:
+ * - Only for use when defining one set of breakpoints!
+ *   If you're handling more it's better to use @include sm { } and similar.
+ * - This can be used for any CSS property
  */
-@mixin res($property, $xs, $sm:$xs, $md:$sm, $lg:$md) {
+@mixin breakpoint-values($property, $xs, $sm:$xs, $md:$sm, $lg:$md) {
 	@include xs { #{$property}:$xs }
 	@include sm { #{$property}:$sm }
 	@include md { #{$property}:$md }
