@@ -122,11 +122,25 @@ $attention: "&:focus, &:hover, &:active";
  * - This can be used for any CSS property
  */
 @mixin breakpoint-values($property, $xs, $sm:$xs, $md:$sm, $lg:$md) {
-	@include xs { #{$property}:$xs }
-	@include sm { #{$property}:$sm }
-	@include md { #{$property}:$md }
-	@include lg { #{$property}:$lg }
+	@include xs {
+		#{$property}: $xs;
+		// If setting font-size, also apply the rem values for each breakpoint
+		@if $property==font-size { #{$property}: calculateRem($xs); }
+	}
+	@include sm {
+		#{$property}: $sm;
+		@if $property==font-size { #{$property}: calculateRem($sm); }
+	}
+	@include md {
+		#{$property}: $md;
+		@if $property==font-size { #{$property}: calculateRem($md); }
+	}
+	@include lg {
+		#{$property}: $lg;
+		@if $property==font-size { #{$property}: calculateRem($lg); }
+	}
 }
+
 
 
 //
