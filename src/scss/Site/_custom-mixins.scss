@@ -29,15 +29,16 @@
 }
 
 /*
- * Attention states, set them all in one go!
- * Usage:
+ * Attention states, set them all in one go! (usage below)
+ */
+$attention: "&:focus, &:hover, &:active";
+/* Usage:
 .foo {
 	#{$attention} {
 		color: red;
 	}
 }
  */
-$attention: "&:focus, &:hover, &:active";
 
 /*
  * Sprite
