@@ -23,7 +23,5 @@ input[type=search] {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 
-	border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
+	border-radius: $input-border-radius;
 }
