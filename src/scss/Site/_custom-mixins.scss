@@ -29,6 +29,18 @@
 }
 
 /*
+ * Attention states, set them all in one go! (usage below)
+ */
+$attention: "&:focus, &:hover, &:active";
+/* Usage:
+.foo {
+	#{$attention} {
+		color: red;
+	}
+}
+ */
+
+/*
  * Sprite
  */
 @mixin sprite($file, $posX, $posY) {
@@ -42,22 +54,14 @@
 // Breakpoint mixins
 // ----------------------------------------------
 
-@mixin sm-plus {
-	@media (min-width: $screen-sm-min) {
+/*
+ * Breakpoint specific:
+ */
+@mixin xs {
+	@media (max-width: $screen-xs-max) {
 		@content;
 	}
 }
-@mixin md-plus {
-	@media (min-width: $screen-md-min) {
-		@content;
-	}
-}
-@mixin lg-plus { // same as lg
-	@media (min-width: $screen-lg-min) {
-		@content;
-	}
-}
-
 @mixin sm {
 	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
 		@content;
@@ -72,4 +76,79 @@
 	@media (min-width: $screen-lg-min) {
 		@content;
 	}
+}
+
+/*
+ * Breakpoint and above:
+ */
+@mixin sm-plus {
+	@media (min-width: $screen-sm-min) {
+		@content;
+	}
+}
+@mixin md-plus {
+	@media (min-width: $screen-md-min) {
+		@content;
+	}
+}
+
+/*
+ * Breakpoint sets:
+ * Note: Avoid using these for anything that can be easily mobile-first
+ */
+@mixin xs-sm {
+	@media (max-width: $screen-sm-max) { @content; }
+}
+@mixin xs-md {
+	@media (max-width: $screen-md-max) { @content; }
+}
+@mixin sm-md {
+	@media (min-width: $screen-sm-min) and(max-width: $screen-md-max) {
+		@content;
+	}
+}
+@mixin sm-lg { @include sm-plus { @content }; }
+@mixin md-lg { @include md-plus { @content }; }
+
+
+/*
+ * Set a particular property to have different values for each breakpoint
+ * Usage:
+@include breakpoint-values(margin-bottom,12px,18px,20px,22px);
+ *
+ * Notes:
+ * - Only for use when defining one set of breakpoints!
+ *   If you're handling more it's better to use @include sm { } and similar.
+ * - This can be used for any CSS property
+ */
+@mixin breakpoint-values($property, $xs, $sm:$xs, $md:$sm, $lg:$md) {
+	@include xs {
+		#{$property}: $xs;
+		// If setting font-size, also apply the rem values for each breakpoint
+		@if $property==font-size { #{$property}: calculateRem($xs); }
+	}
+	@include sm {
+		#{$property}: $sm;
+		@if $property==font-size { #{$property}: calculateRem($sm); }
+	}
+	@include md {
+		#{$property}: $md;
+		@if $property==font-size { #{$property}: calculateRem($md); }
+	}
+	@include lg {
+		#{$property}: $lg;
+		@if $property==font-size { #{$property}: calculateRem($lg); }
+	}
+}
+
+
+
+//
+// Browser-specific mixins
+// ----------------------------------------------
+@mixin ie8 {
+	@media \0screen { @content }
+}
+@mixin ie7 {
+	@media screen\9 { @content }
 }
