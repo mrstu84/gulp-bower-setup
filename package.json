@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/mrstu84/gulp-bower-setup.git"
   },
-  "author": "Stewart Doxey (stewart@evoluted.net)",
+  "author": "Stewart Doxey (hello@stewartdoxey.co.uk)",
   "license": "ISC",
   "devDependencies": {
     "event-stream": "^3.3.1",
