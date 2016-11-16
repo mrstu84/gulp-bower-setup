@@ -1,14 +1,14 @@
 {
   "name": "gulp-bower-setup",
   "version": "1.0.1",
-  "description": "Put any project specific information in this file to help others understand any quirks or setup requirements of the project.",
+  "description": "",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://evoluted.kilnhg.com/Code/Repositories/Evoluted/integral-network-solutions.git"
+    "url": "https://github.com/mrstu84/gulp-bower-setup.git"
   },
   "author": "Stewart Doxey (stewart@evoluted.net)",
   "license": "ISC",
